@@ -4,9 +4,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class RandomUtils extends JavaPlugin {
 
+	public static RandomUtils instance;
+
 	@Override
 	public void onEnable() {
-		// Plugin startup logic
+		instance = this;
 
 	}
 
