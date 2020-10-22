@@ -1,0 +1,14 @@
+name: RandomUtils
+version: @version@
+main: com.enderzombi102.randomutils.RandomUtils
+api-version: 1.16
+prefix: RandomUtils
+authors: [ ENDERZOMBI102 ]
+description: Adds random utils to your server
+commands:
+   veinminer:
+      description: toggles veinminer
+      usage: /veinminer
+      permission: RandomUtils.useVeinMiner
+
+
