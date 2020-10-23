@@ -37,6 +37,7 @@ task copyJar(type: Copy) {
 	include '*.jar'
 }
 
+
 processResources {
 	from(sourceSets.main.resources.srcDirs) {
 		filter ReplaceTokens, tokens: [version: version]
