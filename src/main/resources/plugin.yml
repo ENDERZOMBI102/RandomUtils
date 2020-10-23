@@ -10,5 +10,11 @@ commands:
       description: toggles veinminer
       usage: /veinminer
       permission: RandomUtils.useVeinMiner
+   treecapitator:
+      description: toggles treecapitator
+      usage: /treecapitator
+      permission: RandomUtils.useTreeCapitator
+      aliases:
+         - tc
 
 

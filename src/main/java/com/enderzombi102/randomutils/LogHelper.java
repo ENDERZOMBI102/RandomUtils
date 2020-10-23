@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 public final class LogHelper {
 	
-	private static final Logger logger = LogManager.getLogManager().getLogger("RandomUtils");
+	private static final Logger logger = Logger.getLogger("RandomUtils");
 	
 	public static void Info(String txt) {
 		LogHelper.logger.info(txt);
