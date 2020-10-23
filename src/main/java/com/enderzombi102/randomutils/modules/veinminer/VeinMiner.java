@@ -13,10 +13,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class VeinMiner extends ModuleBase {
 
@@ -28,6 +25,9 @@ public class VeinMiner extends ModuleBase {
 
 	private void findConnected(Block block, Player player, VeinMinerSettings settings) {
 		if ( settings.getMinedBlocks() > settings.getMaxBlocks() ) return;
+
+
+
 		for ( BlockFace face : BlockFace.values()  ) {
 			if (! player.isSneaking() ) return;
 			// is the limit reached?
@@ -35,9 +35,13 @@ public class VeinMiner extends ModuleBase {
 			// save the block
 			Block blockFound = block.getRelative(face);
 			// is the block the type of what we want?
+			int rndm = new Random().nextInt();
+			sendmsg("tried "+face.name()+" "+ rndm);
 			if ( block.getType() != blockFound.getType() ) continue;
+			sendmsg("tried "+face.name()+" "+ rndm);
 			// is the block already been checked?
 			if ( settings.getBlocksFound().contains( blockFound ) ) continue;
+			sendmsg("tried "+face.name()+" "+ rndm);
 			// add the block to the list
 			settings.getBlocksFound().add( blockFound );
 			settings.setMinedBlocks( settings.getMinedBlocks() + 1 );
@@ -52,13 +56,12 @@ public class VeinMiner extends ModuleBase {
 			Player player = evt.getPlayer();
 			if ( player.isSneaking() ) {
 				if ( settings.getOrDefault( player.getUniqueId(), new VeinMinerSettings() ).isActive() ) {
-					Bukkit.broadcastMessage("DOING");
 					Bukkit.broadcastMessage(evt.getBlock().toString());
 					findConnected( evt.getBlock(), player, settings.get( player.getUniqueId() ) );
 					List<ItemStack> drops = new ArrayList<>();
 					for ( Block block : settings.get( player.getUniqueId() ).getBlocksFound() ) {
 						drops.addAll( block.getDrops( player.getInventory().getItemInMainHand() ) );
-						block.setType(Material.AIR);
+						block.setType(Material.DIAMOND_BLOCK);
 					}
 					for (ItemStack itemStack : drops) {
 						player.getWorld().dropItem( player.getLocation(), itemStack );
@@ -67,6 +70,12 @@ public class VeinMiner extends ModuleBase {
 					settings.get( player.getUniqueId() ).setMinedBlocks(0);
 				}
 			}
+			evt.setDropItems(false);
 		}
+	}
+
+
+	public static void sendmsg(String txt) {
+		Bukkit.broadcastMessage(txt);
 	}
 }
